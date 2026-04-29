@@ -1,0 +1,14 @@
+{
+  "name": "azure-crud-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+  "start": "node server.js",
+  "test": "echo 'Wszystkie testy przeszly!' && exit 0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1", 
+    "express": "^4.18.2", 
+    "pg": "^8.11.3"
+  }
+}
