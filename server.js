@@ -11,20 +11,20 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 });
 
-// Tworzenie tabeli
-pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(50) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL
-    )
-`).catch(err => console.error('Błąd tworzenia tabeli:', err));
-
 //Aplikacja CRUD
 
 // Read -> Wyświetla formularz i pobiera listę ludzi z bazy
 app.get('/', async (req, res) => {
     try {
+        // Tworzenie tabeli (MUSI BYĆ TUTAJ, żeby uniknąć błędu bazy!)
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(50) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL
+            )
+        `);
+
         // Wszyscy użytknowicy
         const result = await pool.query('SELECT * FROM users ORDER BY id DESC');
         const users = result.rows;
