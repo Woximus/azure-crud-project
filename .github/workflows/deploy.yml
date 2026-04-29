@@ -32,7 +32,7 @@ jobs:
           echo "Usuwam stare pliki (wymuszam uprawnienia sudo)..."
           sudo rm -rf app
           echo "Pobieram nowa, prywatna aplikacje..."
-          git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/Woximus/azure-crud-project.git app
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Woximus/azure-crud-project.git app
           cd app
           echo "Restartuje serwer z nowym kodem..."
           docker-compose up -d --build
