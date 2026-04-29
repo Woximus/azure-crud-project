@@ -27,11 +27,12 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
           cd ~
-          echo "Usuwam stare pliki..."
-          rm -rf app
+          echo "Wylaczam stare kontenery (jesli istnieja)..."
+          if [ -d "app" ]; then cd app && docker-compose down && cd ~; fi
+          echo "Usuwam stare pliki (wymuszam uprawnienia sudo)..."
+          sudo rm -rf app
           echo "Pobieram nowa, prywatna aplikacje..."
           git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/Woximus/azure-crud-project.git app
           cd app
           echo "Restartuje serwer z nowym kodem..."
-          docker-compose down
           docker-compose up -d --build
